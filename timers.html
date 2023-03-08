@@ -1,0 +1,208 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Timers</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body{
+            text-align: center;
+            font-family: sans-serif;
+            font-weight: 100;
+        }
+        h1{
+            color: #396;
+            font-weight: 100;
+            font-size: 40px;
+            margin: 40px 0px 20px;
+        }
+        .clockdiv{
+            font-family: sans-serif;
+            color: #000;
+            display: inline-block;
+            font-weight: 100;
+            text-align: center;
+            font-size: 30px;
+            width: 100%;
+        }
+        .clockdiv > div{
+        padding: 10px;
+        border-radius: 3px;
+        display: inline-block;
+        }
+        .clockdiv div > p{
+            padding: 15px;
+            border-radius: 3px;
+            background: gainsboro;
+            display: inline-block;
+        }
+        .clockdiv div > span{
+            margin-left: 25px;
+        }
+        .smalltext{
+            padding-top: 5px;
+            font-size: 16px;
+            color: #5A5A5A;
+            text-align: left;
+        }
+        .wrap{
+            text-align: left;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <ul class="wrap">
+            <li><b>1st timer:</b> Counts down 24 hours starting at midnight. After 24hrs it automatically resets and counts down again.</li>
+            <li><b>2nd timer:</b> Counts down 12 hours starting at midnight. After 12hrs it automatically resets and counts down again.</li>
+            <li><b>3nd timer:</b> Counts down 12 hours starting at midnight. Stays at 0 for 12 hours then counts down 12 hours again starting at midnight.</li>
+        </ul>
+    </div>
+    <h1>1st timer</h1>
+    <div class="clockdiv">
+        <div>
+            <p>00</p><span>:</span>
+            <div class="smalltext">Days</div>
+        </div>
+        <div>
+            <p id="twenty-four-hours"></p><span>:</span>
+            <div class="smalltext">Hours</div>
+        </div>
+        <div>
+            <p id="twenty-four-minutes"></p><span>:</span>
+            <div class="smalltext">Minutes</div>
+        </div>
+        <div>
+            <p id="twenty-four-seconds"></p>
+            <div class="smalltext">Seconds</div>
+        </div>
+    </div>
+
+    <h1>2nd timer</h1>
+    <div class="clockdiv">
+        <div>
+            <p>00</p><span>:</span>
+            <div class="smalltext">Days</div>
+        </div>
+        <div>
+            <p id="twelve-hours"></p><span>:</span>
+            <div class="smalltext">Hours</div>
+        </div>
+        <div>
+            <p id="twelve-minutes"></p><span>:</span>
+            <div class="smalltext">Minutes</div>
+        </div>
+        <div>
+            <p id="twelve-seconds"></p>
+            <div class="smalltext">Seconds</div>
+        </div>
+    </div>
+
+    <h1>3rd timer</h1>
+    <div class="clockdiv">
+        <div>
+            <p>00</p><span>:</span>
+            <div class="smalltext">Days</div>
+        </div>
+        <div>
+            <p id="zero-hours"></p><span>:</span>
+            <div class="smalltext">Hours</div>
+        </div>
+        <div>
+            <p id="zero-minutes"></p><span>:</span>
+            <div class="smalltext">Minutes</div>
+        </div>
+        <div>
+            <p id="zero-seconds"></p>
+            <div class="smalltext">Seconds</div>
+        </div>
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<script>
+    //0 hours
+    setInterval(function time(){
+        let d = new Date();
+        let hours, min, sec;
+
+        if (d.getHours() <= 12) {
+            hours = "00";
+            min = "00";
+            sec = "00";
+        }
+        else{
+            hours = 23 - d.getHours();
+            if ((hours + '').length == 1) {
+                hours = '0' + hours;
+            }
+            min = 60 - d.getMinutes();
+            if ((min + '').length == 1) {
+                min = '0' + min;
+            }
+            sec = 60 - d.getSeconds();
+            if ((sec + '').length == 1) {
+                sec = '0' + sec;
+            }
+        }
+
+        jQuery('#zero-hours').html(hours)
+        jQuery('#zero-minutes').html(min)
+        jQuery('#zero-seconds').html(sec)
+    }, 1000);
+
+    //12 hours
+    setInterval(function time(){
+        let d = new Date();
+        let hours;
+
+        if (d.getHours() <= 12) {
+            hours = 11 - d.getHours();
+        }
+        else{
+            hours = 23 - d.getHours();
+        }
+
+        if ((hours + '').length == 1) {
+            hours = '0' + hours;
+        }
+        let min = 60 - d.getMinutes();
+        if ((min + '').length == 1) {
+            min = '0' + min;
+        }
+        let sec = 60 - d.getSeconds();
+        if ((sec + '').length == 1) {
+            sec = '0' + sec;
+        }
+
+        jQuery('#twelve-hours').html(hours)
+        jQuery('#twelve-minutes').html(min)
+        jQuery('#twelve-seconds').html(sec)
+    }, 1000);
+
+    //24 hours
+    setInterval(function time(){
+        let d = new Date();
+        let hours = 23 - d.getHours();
+        if((hours + '').length == 1){
+            hours = '0' + hours;
+        }
+        let min = 60 - d.getMinutes();
+        if((min + '').length == 1){
+            min = '0' + min;
+        }
+        let sec = 60 - d.getSeconds();
+        if((sec + '').length == 1){
+            sec = '0' + sec;
+        }
+        jQuery('#twenty-four-hours').html(hours)
+        jQuery('#twenty-four-minutes').html(min)
+        jQuery('#twenty-four-seconds').html(sec)
+    }, 1000);
+</script>
+
+</body>
+</html>
